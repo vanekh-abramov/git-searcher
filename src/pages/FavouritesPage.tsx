@@ -1,11 +1,20 @@
-import React from 'react'
+import React from "react";
+import { useAppSelector } from "../hooks/redux";
 
-type Props = {}
+type Props = {};
 
 const FavouritesPage = (props: Props) => {
-  return (
-    <div>FavouritesPage</div>
-  )
-}
+  const { favourites } = useAppSelector((state) => state.github);
 
-export default FavouritesPage
+  return (
+    <ul className="list-none">
+      {favourites.map(fav => (
+        <li key={fav}>
+          <a href={fav} target='_blank' rel="noreferrer">{fav}</a>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default FavouritesPage;
