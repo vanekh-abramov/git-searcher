@@ -13,7 +13,6 @@ export const githubApi = createApi({
         url: 'search/users',
         params: {
           q: search,
-          per_page: 10
         }
       }),
       transformResponse: (response: ServerResponse<IUser>) => response.items

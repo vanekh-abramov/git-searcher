@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import RepoCard from "../components/RepoCard";
+import CustomInput from "../components/UI/CustomInput";
 import { useDebounce } from "../hooks/debounce";
 import {
   useLazyGetUserReposQuery,
@@ -27,20 +28,15 @@ const HomePage: FC = () => {
 
   const сlickHandler = (username: string) => {
     fetchRepos(username);
-    setDropdown(false)
+    setDropdown(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center pt-10 mx-auto px-10">
       <div className="relative w-[100%]">
-        <input
-          className="border py-2 px-4 w-full h-[42px] mb-2"
-          type="text"
-          name="search"
-          id="search"
-          value={search}
-          autoComplete='off'
-          onChange={(e) => setSearch(e.target.value)}
+        <CustomInput
+          inputValue={search}
+          inputChange={(e) => setSearch(e.target.value)}
         />
         {dropdown && (
           <ul className="absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-auto shadow-md bg-white">
@@ -60,9 +56,9 @@ const HomePage: FC = () => {
       </div>
       <div className="container">
         {areReposLoading && <p>Loading...</p>}
-        {isReposError && <p>Error...</p>}
-        {repos?.map((repo) => (
-          <RepoCard repo={repo} key={repo.id}/>
+        {isReposError && <p>Too many requests...</p>}
+        {!isReposError && repos?.map((repo) => (
+          <RepoCard repo={repo} key={repo.id} />
         ))}
       </div>
     </div>
